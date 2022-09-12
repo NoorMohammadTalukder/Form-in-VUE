@@ -2,8 +2,10 @@
   <form @submit.prevent="submitForm">
     <div class="form-control">
       <label for="user-name">Your Name</label>
-      <input id="user-name" name="user-name" type="text" v-model="userName" />
+      <input id="user-name" name="user-name" type="text" v-model="userName" @blur="validName" />
+      <p v-if="valName==='invalid'" class="val-name"> *Please enter correrct Name</p>
     </div>
+   
     <div class="form-control">
       <label for="age">Your Age (Years)</label>
       <input id="age" name="age" type="number" v-model="userAge" />
@@ -97,6 +99,7 @@ export default {
       refferrer: 'wom',
       interest: [],
       how: null,
+      valName:"pending",
     };
   },
   methods: {
@@ -109,6 +112,14 @@ export default {
       this.how = null;
       this.interest = [];
     },
+    validName(){
+      if(this.userName==='')
+      {
+        this.valName="invalid";
+      }else{
+        this.valName="valid";
+      }
+    }
   },
 };
 </script>
@@ -121,7 +132,9 @@ form {
   padding: 2rem;
   background-color: #ffffff;
 }
-
+.val-name{
+  color: red;
+}
 .form-control {
   margin: 0.5rem 0;
 }
